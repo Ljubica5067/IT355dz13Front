@@ -1,0 +1,166 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <h1>IT355-DZ13</h1>
+        <div class="display-flex">
+            <button (click)="clickAddSuperhero()" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add superhero</button>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Eye colour</th>
+                <th scope="col">Hair colour</th>
+                <th scope="col">Skin colour</th>
+                <th scope="col">Race</th>
+                <th scope="col">Publisher</th>
+                <th scope="col">Alignment</th>
+                <th scope="col">Height</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let superhero of superheroes">
+                <td>{{superhero.superHeroName}}</td>
+                <td>{{superhero.fullName}}</td>
+                <td>{{superhero.gender.gender}}</td>
+                <td>{{superhero.eyeColour.colour}}</td>
+                <td>{{superhero.hairColour.colour}}</td>
+                <td>{{superhero.skinColour.colour}}</td>
+                <td>{{superhero.race.race}}</td>
+                <td>{{superhero.publisher.publisher}}</td>
+                <td>{{superhero.alignment.alignment}}</td>
+                <td>{{superhero.heightCm}}</td>
+                <td>{{superhero.weightKg}}</td>
+                <td>
+                    <button (click)="onEdit(superhero)" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+                    <button (click)="deleteSuperhero(superhero.id)" class="btn btn-danger mx-2 btn-sm">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new superhero</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form [formGroup]="addHeroeForm">
+                        <div class="form-group">
+                            <label for="superheroName">Superhero name</label>
+                            <input type="text" class="form-control" id="superheroName" formControlName="superHeroName">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="fullName">Full name</label>
+                            <input type="text" class="form-control" id="fullName" formControlName="fullName">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="gender">Select gender</label>
+                            <select class="form-control" id="gender" formControlName="gender">
+                            <option *ngFor="let gender of genderOpcije" [value]="gender.id">
+                                {{gender.gender}}
+                            </option>
+                          </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="eyeColour">Select eye colour</label>
+                            <select class="form-control" id="eyeColour" formControlName="eyeColour">
+                              <option *ngFor="let colour of colourOpcije" [value]="colour.id">
+                                  {{colour.colour}}
+                              </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="hairColour">Select hair colour</label>
+                            <select class="form-control" id="hairColour" formControlName="hairColour">
+                              <option *ngFor="let colour of colourOpcije" [value]="colour.id">
+                                  {{colour.colour}}
+                              </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="skinColour">Select skin colour</label>
+                            <select class="form-control" id="skinColour" formControlName="skinColour">
+                              <option *ngFor="let colour of colourOpcije" [value]="colour.id">
+                                  {{colour.colour}}
+                              </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="race">Select race</label>
+                            <select class="form-control" id="race" formControlName="race">
+                              <option *ngFor="let race of raceOpcije" [value]="race.id">
+                                  {{race.race}}
+                              </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="publisher">Select publisher</label>
+                            <select class="form-control" id="publisher" formControlName="publisher">
+                              <option *ngFor="let publisher of publisherOpcije" [value]="publisher.id">
+                                  {{publisher.publisher}}
+                              </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="alignment">Select alignment</label>
+                            <select class="form-control" id="alignment" formControlName="alignment">
+                              <option *ngFor="let alignment of alignmentOpcije" [value]="alignment.id">
+                                  {{alignment.alignment}}
+                              </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="height">Height(cm)</label>
+                            <input type="number" class="form-control" id="height" formControlName="heightCm">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="weight">Weight(kg)</label>
+                            <input type="number" class="form-control" id="weight" formControlName="weightKg">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="superpower">Select super powers(multiple)</label>
+                            <select multiple class="form-control" id="superpower" formControlName="superpower">
+                            <option *ngFor="let superpower of superpowerOpcije" [value]="superpower.id">
+                                {{superpower.powerName}}
+                            </option>
+                          </select>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" *ngIf="showAdd" class="btn btn-primary" (click)="addSuperhero()">Add</button>
+                    <button type="button" *ngIf="showUpdate" class="btn btn-primary" (click)="updateSuperhero()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
